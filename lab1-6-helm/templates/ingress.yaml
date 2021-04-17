@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.deployment.name}}-nodeport
+  namespace: default
+spec:
+  rules:
+  - host: arch.homework
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          serviceName: {{ .Values.deployment.name}}-nodeport
+          servicePort: 80     

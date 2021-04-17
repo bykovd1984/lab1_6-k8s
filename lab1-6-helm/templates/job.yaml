@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.job.containers.name }}-job
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.job.containers.name }}-job
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: {{ .Values.job.containers.name }}
+        image: {{ .Values.job.containers.image }}
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        volumeMounts:
+          - name: {{ .Values.configMap.name }}-volume
+            mountPath: /app/appsettings.json
+            readOnly: true      
+            subPath: appsettings.json
+        env:
+        - name: USERS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: password
+      volumes:
+        - name: {{ .Values.configMap.name }}-volume
+          configMap: 
+            name: {{ .Values.configMap.name }}
+            items: 
+            - key: value
+              path: appsettings.json
+            

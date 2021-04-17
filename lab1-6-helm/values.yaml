@@ -1,0 +1,16 @@
+secret:
+  name: postgre-password-secret
+  value: MTIzcXdl
+
+configMap: 
+  name: lab1-6-appsettings
+  value: '{ "UsersDB": "server=postgres-postgresql;port=5432;User Id=Lab1_6_User;password={passwrord_placeholder};database=Lab1_6_Db;" }'
+
+job:
+  containers:
+    name: bykovd-lab1-6-migration
+    image: bykovd1984/softwarearchitect-lab1.6-migrations:1.7
+
+deployment:
+  name: bykovd-lab1-6
+  image: bykovd1984/softwarearchitect-lab1.6-web:1.2
