@@ -1,4 +1,10 @@
-helm install postgres bitnami/postgresql -f Lab1.6-postgres-values.yaml
+Сервис: https://github.com/bykovd1984/Lab1_6-svc
 
-helm install .\lab1-6-helm --generate-name
 
+Инструкция 
+1) Клонировать репозиторий  https://github.com/bykovd1984/lab1_6-k8s
+2) В lab1_6-k8s выполнить команду:
+	helm install postgres bitnami/postgresql -f Lab1.6-postgres-values.yaml
+3) В той же папке выполнить команду:
+	helm install .\lab1-6-helm --generate-name
+4) Коллекция запросов Postman в той же папке в файле Postman.software-architect.1.6.json
