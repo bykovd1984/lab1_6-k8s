@@ -8,3 +8,4 @@
 3) В той же папке выполнить команду:
 	helm install .\lab1-6-helm --generate-name
 4) Коллекция запросов Postman в той же папке в файле Postman.software-architect.1.6.json
+helm install prometheus-community/prometheus            --generate-name

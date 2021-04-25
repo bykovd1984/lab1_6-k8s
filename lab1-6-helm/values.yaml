@@ -13,4 +13,8 @@ job:
 
 deployment:
   name: bykovd-lab1-6
-  image: bykovd1984/softwarearchitect-lab1.6-web:1.2
+  image: bykovd1984/softwarearchitect-lab1.6-web:1.3
+
+serviceMonitor:
+  name: bykovd-lab1-6
+  image: bykovd1984/softwarearchitect-lab1.6-web:1.3
