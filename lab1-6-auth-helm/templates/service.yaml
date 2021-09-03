@@ -10,6 +10,6 @@ spec:
     app: {{ .Values.deployment.name }}
   ports:
   - name: web
-    port: 8081
-    targetPort: 8000
-    nodePort: 30123
+    port: 5021
+    targetPort: 5002
+    nodePort: 30124

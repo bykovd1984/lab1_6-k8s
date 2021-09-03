@@ -25,7 +25,7 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: 8000
+        - containerPort: 5002
         volumeMounts:
           - name: {{ .Values.configMap.name }}-volume
             mountPath: /app/appsettings.json

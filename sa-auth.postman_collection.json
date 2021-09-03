@@ -1,0 +1,602 @@
+{
+	"info": {
+		"_postman_id": "bd26b102-ade7-4068-afc3-dc8f63c68cbc",
+		"name": "sa-auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"user1\",\r\n    \"password\": \"123qwe!@#QWE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{auth_url}}/Users/Create",
+					"protocol": "http",
+					"host": [
+						"{{auth_url}}"
+					],
+					"path": [
+						"Users",
+						"Create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get profile of user1 without token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{base_url}}/profiles/user1",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"profiles",
+						"user1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get token for user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}\r",
+							"var jsonResponse = pm.response.json();\r",
+							"pm.environment.set(\"Token1\", jsonResponse.access_token);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "user1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123qwe!@#QWE",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "postman",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "511536EF-F270-4058-80CA-1C89C192F69A",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "api1.6.profile",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{auth_url}}/connect/token",
+					"protocol": "http",
+					"host": [
+						"{{auth_url}}"
+					],
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get profile of user1 by user1 token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{base_url}}/profiles/user1",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"profiles",
+						"user1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set profile of user1 by user1 token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"gender\": \"m\",\r\n    \"address\": \"{{$randomCity}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{base_url}}/profiles/user1",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"profiles",
+						"user1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get updated profile of user1 by user1 token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{base_url}}/profiles/user1",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"profiles",
+						"user1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\":\"user2\",\r\n    \"password\":\"123qwe!@#QWE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{auth_url}}/Users/Create",
+					"protocol": "http",
+					"host": [
+						"{{auth_url}}"
+					],
+					"path": [
+						"Users",
+						"Create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get token for user2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}\r",
+							"var jsonResponse = pm.response.json();\r",
+							"pm.environment.set(\"Token2\", jsonResponse.access_token);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "user2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123qwe!@#QWE",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "postman",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "511536EF-F270-4058-80CA-1C89C192F69A",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "api1.6.profile",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{auth_url}}/connect/token",
+					"protocol": "http",
+					"host": [
+						"{{auth_url}}"
+					],
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get profile of user1 by user2 token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{base_url}}/profiles/user1",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"profiles",
+						"user1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set profile of user1 by user2 token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"user1@gmail.com\",\r\n    \"gender\": \"m\",\r\n    \"address\": \"Moscow\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{base_url}}/profiles/user1",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"profiles",
+						"user1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "arch.homework"
+		},
+		{
+			"key": "auth_url",
+			"value": "arch-auth.homework"
+		}
+	]
+}

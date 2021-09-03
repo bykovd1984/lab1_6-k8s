@@ -1,0 +1,3 @@
+postgresqlDatabase: Lab1_6_auth_Db
+postgresqlPassword: 123qwe
+postgresqlUsername: Lab1_6_auth_User
