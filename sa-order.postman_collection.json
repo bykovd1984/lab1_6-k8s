@@ -1,0 +1,382 @@
+{
+	"info": {
+		"_postman_id": "015c9666-8c23-4a1f-81f2-d6259d2fc645",
+		"name": "sa-order",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"{{user_login}}\",\r\n    \"password\": \"123qwe!@#QWE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{auth_url}}/Users/Create",
+					"protocol": "http",
+					"host": [
+						"{{auth_url}}"
+					],
+					"path": [
+						"Users",
+						"Create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get token for user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}\r",
+							"var jsonResponse = pm.response.json();\r",
+							"pm.environment.set(\"Token1\", jsonResponse.access_token);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "{{user_login}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123qwe!@#QWE",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "postman",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "511536EF-F270-4058-80CA-1C89C192F69A",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "api1.6.profile",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{auth_url}}/connect/token",
+					"protocol": "http",
+					"host": [
+						"{{auth_url}}"
+					],
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestId\": \"b3a9ca4e-9b6d-4136-a572-bbcabba9cd6e\",\r\n    \"sum\": 70\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{base_url}}/Order/Create",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"Order",
+						"Create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order with the same RequestId",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestId\": \"b3a9ca4e-9b6d-4136-a572-bbcabba9cd6e\",\r\n    \"sum\": 70\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{base_url}}/Order/Create",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"Order",
+						"Create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order with new RequestId",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log('Request:');\r",
+							"console.log(pm.request);\r",
+							"console.log('Response:');\r",
+							"try {\r",
+							"    console.log(pm.response.json());\r",
+							"}\r",
+							"catch {\r",
+							"    console.log(pm.response);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"requestId\": \"{{$guid}}\",\r\n    \"sum\": 70\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{base_url}}/Order/Create",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"Order",
+						"Create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Email list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{base_url}}/Emails",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"Emails"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "arch.homework"
+		},
+		{
+			"key": "auth_url",
+			"value": "arch-auth.homework"
+		},
+		{
+			"key": "user_login",
+			"value": "user56"
+		}
+	]
+}

@@ -9,7 +9,7 @@ metadata:
 spec:
   ports:
   - port: 9092
-    name: plaintext
+    name: plaintextint
   - port: 9999
     name: jmx
   clusterIP: None
@@ -55,6 +55,8 @@ spec:
         image: wurstmeister/kafka:2.11-2.0.0
         imagePullPolicy: IfNotPresent
         ports:
+        - containerPort: 9092
+          name: plaintextint
         - containerPort: 9094
           name: plaintext
         - containerPort: 9999

@@ -7,8 +7,12 @@
 	helm install postgres-auth bitnami/postgresql -f Lab1.6-postgres-auth-values.yaml
 3) В той же папке выполнить команду:
 	helm install .\lab1-6-auth-helm --generate-name
-4) В lab1_6-k8s выполнить команду:
+4) Устанавливаем Kafka
+	kubectl apply -f kafka/00-namespace/
+	kubectl apply -f kafka/01-zookeeper/
+	kubectl apply -f kafka/02-kafka/
+5) В lab1_6-k8s выполнить команду:
 	helm install postgres bitnami/postgresql -f Lab1.6-postgres-values.yaml
-5) В той же папке выполнить команду:
+6) В той же папке выполнить команду:
 	helm install .\lab1-6-helm --generate-name
-4) Коллекция запросов Postman в той же папке в файле sa-auth.postman_collection.json
+7) Коллекция запросов Postman в той же папке в файле sa-order.postman_collection.json

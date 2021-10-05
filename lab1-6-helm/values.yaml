@@ -4,13 +4,30 @@ secret:
 
 configMap: 
   name: lab1-6-appsettings
-  value: '{ "UsersDB": "server=postgres-postgresql;port=5432;User Id=Lab1_6_User;password={passwrord_placeholder};database=Lab1_6_Db;", "authUrl": "http://arch-auth.homework" }'
+  value: '{ 
+      "UsersDB": "server=postgres-postgresql;port=5432;User Id=Lab1_6_User;password={passwrord_placeholder};database=Lab1_6_Db;", 
+      "authUrl": "http://arch-auth.homework",
+      "Kafka":"kafka.kafka-ca1"
+      }'
 
 job:
   containers:
     name: bykovd-lab1-6-migration
-    image: bykovd1984/softwarearchitect-lab1.6-migrations:1.8
+    image: bykovd1984/softwarearchitect-lab1.6-migrations:1.9
 
 deployment:
   name: bykovd-lab1-6
-  image: bykovd1984/softwarearchitect-lab1.6-web:1.4
+  image: bykovd1984/softwarearchitect-lab1.6-web:1.5
+
+deploymentOrderSvc:
+  name: order-svc
+  image: bykovd1984/softwarearchitect-lab1.6-ordersvc:1.0
+
+deploymentBillingSvc:
+  name: billing-svc
+  image: bykovd1984/softwarearchitect-lab1.6-billingsvc:1.0
+
+deploymentNotifierSvc:
+  name: notifier-svc
+  image: bykovd1984/softwarearchitect-lab1.6-notifiersvc:1.0
+
