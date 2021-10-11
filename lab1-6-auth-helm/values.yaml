@@ -4,8 +4,15 @@ secret:
 
 configMap: 
   name: lab1-6-auth-appsettings
-  value: '{"ConnectionStrings": {"DefaultConnection": "server=postgres-auth-postgresql;port=5432;User Id=Lab1_6_auth_User;password=123qwe;database=Lab1_6_auth_Db;" }}'
+  value: '{ 
+    "Kafka":"kafka.kafka-ca1", 
+    "UsersDB": "server=127.0.0.1;port=5433;User ID=Lab1_6_User;password=123qwe;database=Lab1_6_Db;",
+    "ConnectionStrings": 
+    { 
+      "DefaultConnection": "server=postgres-auth-postgresql;port=5432;User Id=Lab1_6_auth_User;password=123qwe;database=Lab1_6_auth_Db;" 
+    } 
+  }'
 
 deployment:
   name: bykovd-lab1-6-auth
-  image: bykovd1984/softwarearchitect-lab1.6-auth:1.2
+  image: bykovd1984/softwarearchitect-lab1.6-auth:1.4

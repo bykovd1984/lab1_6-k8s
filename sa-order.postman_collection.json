@@ -173,7 +173,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"requestId\": \"b3a9ca4e-9b6d-4136-a572-bbcabba9cd6e\",\r\n    \"sum\": 70\r\n}",
+					"raw": "{\r\n    \"requestId\": \"b3a9ca4e-9b6d-4136-a572-bbcabba9cd6r\",\r\n    \"sum\": 70\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -239,7 +239,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"requestId\": \"b3a9ca4e-9b6d-4136-a572-bbcabba9cd6e\",\r\n    \"sum\": 70\r\n}",
+					"raw": "{\r\n    \"requestId\": \"b3a9ca4e-9b6d-4136-a572-bbcabba9cd6r\",\r\n    \"sum\": 70\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -376,7 +376,7 @@
 		},
 		{
 			"key": "user_login",
-			"value": "user56"
+			"value": "user62"
 		}
 	]
 }

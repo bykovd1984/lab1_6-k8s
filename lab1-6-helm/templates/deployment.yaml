@@ -180,4 +180,96 @@ spec:
             name: {{ .Values.configMap.name }}
             items: 
             - key: value
-              path: appsettings.json                             
+              path: appsettings.json       
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploymentDeliverySvc.name }}-deployment
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # how many pods we can add at a time
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.deploymentDeliverySvc.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deploymentDeliverySvc.name }}
+    spec:
+      containers:
+      - name: {{ .Values.deploymentDeliverySvc.name }}
+        image: {{ .Values.deploymentDeliverySvc.image }}
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        volumeMounts:
+          - name: {{ .Values.configMap.name }}-volume
+            mountPath: /app/appsettings.json
+            readOnly: true      
+            subPath: appsettings.json
+        env:
+        - name: USERS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: password
+      volumes:
+        - name: {{ .Values.configMap.name }}-volume
+          configMap: 
+            name: {{ .Values.configMap.name }}
+            items: 
+            - key: value
+              path: appsettings.json       
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploymentWarehouseSvc.name }}-deployment
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # how many pods we can add at a time
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.deploymentWarehouseSvc.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deploymentWarehouseSvc.name }}
+    spec:
+      containers:
+      - name: {{ .Values.deploymentWarehouseSvc.name }}
+        image: {{ .Values.deploymentWarehouseSvc.image }}
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        volumeMounts:
+          - name: {{ .Values.configMap.name }}-volume
+            mountPath: /app/appsettings.json
+            readOnly: true      
+            subPath: appsettings.json
+        env:
+        - name: USERS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: password
+      volumes:
+        - name: {{ .Values.configMap.name }}-volume
+          configMap: 
+            name: {{ .Values.configMap.name }}
+            items: 
+            - key: value
+              path: appsettings.json                                                         

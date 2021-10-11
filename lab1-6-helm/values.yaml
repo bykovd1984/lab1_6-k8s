@@ -13,21 +13,29 @@ configMap:
 job:
   containers:
     name: bykovd-lab1-6-migration
-    image: bykovd1984/softwarearchitect-lab1.6-migrations:1.9
+    image: bykovd1984/softwarearchitect-lab1.6-migrations:1.10
 
 deployment:
   name: bykovd-lab1-6
-  image: bykovd1984/softwarearchitect-lab1.6-web:1.5
+  image: bykovd1984/softwarearchitect-lab1.6-web:1.8
 
 deploymentOrderSvc:
   name: order-svc
-  image: bykovd1984/softwarearchitect-lab1.6-ordersvc:1.0
+  image: bykovd1984/softwarearchitect-lab1.6-ordersvc:1.2
 
 deploymentBillingSvc:
   name: billing-svc
-  image: bykovd1984/softwarearchitect-lab1.6-billingsvc:1.0
+  image: bykovd1984/softwarearchitect-lab1.6-billingsvc:1.2
 
 deploymentNotifierSvc:
   name: notifier-svc
-  image: bykovd1984/softwarearchitect-lab1.6-notifiersvc:1.0
+  image: bykovd1984/softwarearchitect-lab1.6-notifiersvc:1.2
+
+deploymentWarehouseSvc:
+  name: warehouse-svc
+  image: bykovd1984/softwarearchitect-lab1.6-warehousesvc:1.2
+
+deploymentDeliverySvc:
+  name: delivery-svc
+  image: bykovd1984/softwarearchitect-lab1.6-deliverysvc:1.2
 
